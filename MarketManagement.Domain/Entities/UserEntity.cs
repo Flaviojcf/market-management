@@ -19,7 +19,6 @@ namespace MarketManagement.Domain.Entities
         public string Password { get; private set; }
         public int MonthlyBudget { get; private set; }
 
-
         public void Update(string name, string email, string password, int monthlyBudget)
         {
             ValidateDomain(name, email, password, monthlyBudget);
@@ -27,6 +26,7 @@ namespace MarketManagement.Domain.Entities
             Email = email;
             Password = password;
             MonthlyBudget = monthlyBudget;
+            UpdatedAt = DateTime.Now;
         }
 
         private static void ValidateDomain(string name, string email, string password, int monthlyBudget)
