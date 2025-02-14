@@ -9,7 +9,6 @@
         public DateTime UpdatedAt { get; private set; }
         public bool IsActive { get; private set; } = true;
 
-
         public void Activate()
         {
             this.IsActive = true;
