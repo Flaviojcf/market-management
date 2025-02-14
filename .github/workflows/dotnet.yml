@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: Continuous Deployment
 
     runs-on: ubuntu-latest
 
