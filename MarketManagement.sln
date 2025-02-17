@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketManagement.Domain", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketManagement.Tests", "MarketManagement.Tests\MarketManagement.Tests.csproj", "{2CDCB771-0DEF-4BA7-AA19-A30C29C6FBC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketManagement.Application", "MarketManagement.Application\MarketManagement.Application.csproj", "{497D11D8-C546-4F6C-9800-2F03D736B6A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2CDCB771-0DEF-4BA7-AA19-A30C29C6FBC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CDCB771-0DEF-4BA7-AA19-A30C29C6FBC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CDCB771-0DEF-4BA7-AA19-A30C29C6FBC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{497D11D8-C546-4F6C-9800-2F03D736B6A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{497D11D8-C546-4F6C-9800-2F03D736B6A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{497D11D8-C546-4F6C-9800-2F03D736B6A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{497D11D8-C546-4F6C-9800-2F03D736B6A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
