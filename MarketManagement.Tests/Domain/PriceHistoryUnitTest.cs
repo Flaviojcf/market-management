@@ -32,7 +32,7 @@ namespace MarketManagement.Tests.Domain
         [InlineData(0, "2024-01-01", "d3b07384-d9a1-4a2d-bf43-bb6e5b7f5c01")]
         [InlineData(10, null, "d3b07384-d9a1-4a2d-bf43-bb6e5b7f5c01")]
         [InlineData(10, "2024-01-01", null)]
-        [Trait("Domain", "Update Price History")]
+        [Trait("Domain", "Create Price History")]
         public void CreatePriceHistory_ShouldThrowDomainException_WhenInvalidDataIsProvided(int price, string date, string productId)
         {
             // Act & Assert
