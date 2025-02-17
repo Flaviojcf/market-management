@@ -19,7 +19,7 @@ namespace MarketManagement.Tests.Application.Product
         }
 
         [Fact]
-        [Trait("Application", "Product - Command")]
+        [Trait("Application", "Create Product - Command")]
         public async Task Handle_ShouldCreateProduct_WhenDataIsValid()
         {
             // Arrange
