@@ -57,9 +57,7 @@ namespace MarketManagement.Tests.Application.Product
             var command = new DeleteProductCommand(id);
 
             // Act & Assert
-            await Assert.ThrowsAsync<NullReferenceException>(() =>
-                _deleteProductCommandHandler.Handle(command, CancellationToken.None));
-
+            await Assert.ThrowsAsync<NullReferenceException>(() => _deleteProductCommandHandler.Handle(command, CancellationToken.None));
             _productRepositoryMock.Verify(r => r.GetByIdAsync(id), Times.Once);
         }
     }
