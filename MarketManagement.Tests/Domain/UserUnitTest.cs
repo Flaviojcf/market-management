@@ -103,7 +103,6 @@ namespace MarketManagement.Tests.Domain
             Assert.Contains("The field monthlyBudget is required and must be greater than 0", exception.Message);
         }
 
-
         [Fact]
         [Trait("Domain", "Update User")]
         public void UpdateUser_WithValidData_ReturnsUser()
@@ -128,6 +127,48 @@ namespace MarketManagement.Tests.Domain
             Assert.Equal(2000, user.MonthlyBudget);
             Assert.True(user.IsActive);
             Assert.Equal(DateTime.Now.Date, user.CreatedAt.Date);
+            Assert.Equal(DateTime.Now.Date, user.UpdatedAt.Date);
+        }
+
+        [Fact]
+        [Trait("Domain", "Update User")]
+        public void DeActiveUser_ReturnsDeActiveUser()
+        {
+            // Arrange
+            var name = "John Doe";
+            var email = "john.doe@example.com";
+            var password = "p@ssw0rd";
+            var monthlyBudget = 1000;
+
+            // Act
+            var user = new UserEntity(name, email, password, monthlyBudget);
+
+            user.Deactivate();
+
+            // Assert
+            Assert.NotNull(user);
+            Assert.False(user.IsActive);
+            Assert.Equal(DateTime.Now.Date, user.UpdatedAt.Date);
+        }
+
+        [Fact]
+        [Trait("Domain", "Update User")]
+        public void ActiveUser_ReturnsActiveUser()
+        {
+            // Arrange
+            var name = "John Doe";
+            var email = "john.doe@example.com";
+            var password = "p@ssw0rd";
+            var monthlyBudget = 1000;
+
+            // Act
+            var user = new UserEntity(name, email, password, monthlyBudget);
+            user.Deactivate();
+            user.Activate();
+
+            // Assert
+            Assert.NotNull(user);
+            Assert.True(user.IsActive);
             Assert.Equal(DateTime.Now.Date, user.UpdatedAt.Date);
         }
 
