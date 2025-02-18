@@ -1,6 +1,6 @@
 ﻿using MarketManagement.Domain.Record;
 
-namespace MarketManagement.Domain.Services
+namespace MarketManagement.Domain.Services.Interfaces
 {
     public interface IAuthService
     {
