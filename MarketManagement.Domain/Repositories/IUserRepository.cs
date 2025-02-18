@@ -2,7 +2,7 @@
 
 namespace MarketManagement.Domain.Repositories
 {
-    public interface IUserRepository : IBaseRepository<ProductEntity>
+    public interface IUserRepository : IBaseRepository<UserEntity>
     {
     }
 }
