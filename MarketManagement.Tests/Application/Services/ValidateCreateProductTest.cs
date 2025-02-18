@@ -20,6 +20,21 @@ namespace MarketManagement.Tests.Application.Services
 
         [Fact]
         [Trait("Service", "Validate Create Product")]
+        public async Task Handle_ShouldCreateProduct_WhenNameIsNotRegistered()
+        {
+            // Arrange
+            var name = "Arroz";
+            _productRepository.Setup(r => r.GetByNameAsync(name)).ReturnsAsync((ProductEntity)null);
+
+            // Act
+            var result = await _validateCreateProduct.ValidateCreateProductAsync(name);
+
+            // Assert
+            Assert.True(result.IsValid);
+        }
+
+        [Fact]
+        [Trait("Service", "Validate Create Product")]
         public async Task Handle_ShouldNotCreateProduct_WhenNameIsRegistered()
         {
             // Arrange
