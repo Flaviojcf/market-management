@@ -4,5 +4,6 @@ namespace MarketManagement.Domain.Repositories
 {
     public interface IProductRepository : IBaseRepository<ProductEntity>
     {
+        Task<ProductEntity> GetByNameAsync(string name);
     }
 }
