@@ -3,7 +3,7 @@ using MarketManagement.Domain.Exceptions;
 
 namespace MarketManagement.Domain.Entities
 {
-    public class ShoppingListEntity : BaseEntity
+    public sealed class ShoppingListEntity : BaseEntity
     {
         public ShoppingListEntity(string name, int totalPrice, Guid productId)
         {
