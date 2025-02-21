@@ -65,10 +65,6 @@ namespace MarketManagement.Tests.Application.Product
             _productValidate.Setup(v => v.ValidateUpdateProductAsync(id))
                     .ReturnsAsync(validationResult);
 
-            _productRepositoryMock
-                .Setup(r => r.GetByIdAsync(id))
-                .ReturnsAsync((ProductEntity)null);
-
             var command = new DeleteProductCommand(id);
 
             // Act & Assert
