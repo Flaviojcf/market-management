@@ -67,10 +67,6 @@ namespace MarketManagement.Tests.Application.Product
             _productValidate.Setup(v => v.ValidateUpdateProductAsync(id))
                     .ReturnsAsync(validationResult);
 
-            _productRepositoryMock
-                .Setup(r => r.GetByIdAsync(id))
-                .ReturnsAsync((ProductEntity)null);
-
             var command = new UpdateProductCommand(id, "Arroz", 10, 15, CategoryEnum.Alimentos);
 
             // Act & Assert
