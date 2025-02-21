@@ -1,6 +1,7 @@
 ﻿using MarketManagement.Application.Commands.Product.DeleteProduct;
 using MarketManagement.Domain.Entities;
 using MarketManagement.Domain.Enums;
+using MarketManagement.Domain.Exceptions;
 using MarketManagement.Domain.Repositories;
 using MarketManagement.Domain.Services.Interfaces;
 using MarketManagement.Domain.Validations;
@@ -71,6 +72,8 @@ namespace MarketManagement.Tests.Application.Product
             var command = new DeleteProductCommand(id);
 
             // Act & Assert
+            var exception = await Assert.ThrowsAsync<ValidationException>(() => _deleteProductCommandHandler.Handle(command, CancellationToken.None));
+            Assert.Contains($"O produto '{id}' não existe.", exception.Message);
             _productRepositoryMock.Verify(r => r.GetByIdAsync(id), Times.Never);
             Assert.False(validationResult.IsValid);
         }

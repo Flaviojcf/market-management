@@ -46,8 +46,8 @@ namespace MarketManagement.Tests.Application.Product
             Assert.Equal(currentPrice, result.CurrentPrice);
             Assert.Equal(lastMonthPrice, result.LastMonthPrice);
             Assert.Equal(categoryEnum, result.CategoryEnum);
-            Assert.Equal(DateTime.Now.Date, product.CreatedAt.Date);
-            Assert.Equal(DateTime.MinValue, product.UpdatedAt.Date);
+            Assert.Equal(DateTime.Now.Date, result.CreatedAt.Date);
+            Assert.Equal(DateTime.MinValue, result.UpdatedAt.Date);
             Assert.True(result.IsActive);
             _productRepositoryMock.Verify(r => r.GetByIdAsync(id), Times.Once);
         }
