@@ -4,7 +4,7 @@ using MarketManagement.Domain.Exceptions;
 
 namespace MarketManagement.Domain.Entities
 {
-    public class ProductEntity : BaseEntity
+    public sealed class ProductEntity : BaseEntity
     {
         public ProductEntity(string name, int currentPrice, int lastMonthPrice, CategoryEnum categoryEnum)
         {

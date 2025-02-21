@@ -3,7 +3,7 @@ using MarketManagement.Domain.Exceptions;
 
 namespace MarketManagement.Domain.Entities
 {
-    public class PriceHistoryEntity : BaseEntity
+    public sealed class PriceHistoryEntity : BaseEntity
     {
         public PriceHistoryEntity(int price, DateTime date, Guid productId)
         {
