@@ -2,6 +2,8 @@
 using MarketManagement.Domain.Entities;
 using MarketManagement.Domain.Enums;
 using MarketManagement.Domain.Repositories;
+using MarketManagement.Domain.Services.Interfaces;
+using MarketManagement.Domain.Validations;
 using Moq;
 
 namespace MarketManagement.Tests.Application.Product
@@ -10,11 +12,13 @@ namespace MarketManagement.Tests.Application.Product
     public class UpdateProductCommandHandlerTest
     {
         private readonly Mock<IProductRepository> _productRepositoryMock;
+        private readonly Mock<IProductValidateService> _productValidate;
         private readonly UpdateProductCommandHandler _updateProductCommandHandler;
         public UpdateProductCommandHandlerTest()
         {
             _productRepositoryMock = new Mock<IProductRepository>();
-            _updateProductCommandHandler = new UpdateProductCommandHandler(_productRepositoryMock.Object);
+            _productValidate = new Mock<IProductValidateService>();
+            _updateProductCommandHandler = new UpdateProductCommandHandler(_productRepositoryMock.Object, _productValidate.Object);
         }
 
         [Fact]
@@ -24,6 +28,10 @@ namespace MarketManagement.Tests.Application.Product
             // Arrange
             var id = Guid.NewGuid();
             var product = new ProductEntity("Product Name", 100, 90, CategoryEnum.Limpeza);
+            var validationResult = new ValidationResult();
+
+            _productValidate.Setup(v => v.ValidateUpdateProductAsync(id))
+                    .ReturnsAsync(validationResult);
 
             _productRepositoryMock
                          .Setup(r => r.GetByIdAsync(id))
@@ -42,6 +50,7 @@ namespace MarketManagement.Tests.Application.Product
 
             _productRepositoryMock.Verify(r => r.GetByIdAsync(id), Times.Once);
             _productRepositoryMock.Verify(r => r.SaveChangesAsync(), Times.Once);
+            Assert.True(validationResult.IsValid);
         }
 
     }
