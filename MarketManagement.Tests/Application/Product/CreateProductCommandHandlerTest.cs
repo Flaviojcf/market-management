@@ -13,13 +13,13 @@ namespace MarketManagement.Tests.Application.Product
     public class CreateProductCommandHandlerTest
     {
         private readonly Mock<IProductRepository> _productRepositoryMock;
-        private readonly Mock<IProductValidate> _productValidate;
+        private readonly Mock<IProductValidateService> _productValidate;
         private readonly CreateProductCommandHandler _createProductCommandHandler;
 
         public CreateProductCommandHandlerTest()
         {
             _productRepositoryMock = new Mock<IProductRepository>();
-            _productValidate = new Mock<IProductValidate>();
+            _productValidate = new Mock<IProductValidateService>();
             _createProductCommandHandler = new CreateProductCommandHandler(_productRepositoryMock.Object, _productValidate.Object);
         }
 

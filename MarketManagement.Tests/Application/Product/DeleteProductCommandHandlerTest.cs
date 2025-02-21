@@ -2,6 +2,8 @@
 using MarketManagement.Domain.Entities;
 using MarketManagement.Domain.Enums;
 using MarketManagement.Domain.Repositories;
+using MarketManagement.Domain.Services.Interfaces;
+using MarketManagement.Domain.Validations;
 using MediatR;
 using Moq;
 
@@ -11,12 +13,13 @@ namespace MarketManagement.Tests.Application.Product
     public class DeleteProductCommandHandlerTest
     {
         private readonly Mock<IProductRepository> _productRepositoryMock;
+        private readonly Mock<IProductValidateService> _productValidate;
         private readonly DeleteProductCommandHandler _deleteProductCommandHandler;
-
         public DeleteProductCommandHandlerTest()
         {
             _productRepositoryMock = new Mock<IProductRepository>();
-            _deleteProductCommandHandler = new DeleteProductCommandHandler(_productRepositoryMock.Object);
+            _productValidate = new Mock<IProductValidateService>();
+            _deleteProductCommandHandler = new DeleteProductCommandHandler(_productRepositoryMock.Object, _productValidate.Object);
         }
 
         [Fact]
@@ -26,6 +29,10 @@ namespace MarketManagement.Tests.Application.Product
             // Arrange
             var id = Guid.NewGuid();
             var product = new ProductEntity("Product Name", 100, 90, CategoryEnum.Alimentos);
+            var validationResult = new ValidationResult();
+
+            _productValidate.Setup(v => v.ValidateUpdateProductAsync(id))
+                    .ReturnsAsync(validationResult);
 
             _productRepositoryMock
                 .Setup(r => r.GetByIdAsync(id))
@@ -41,6 +48,7 @@ namespace MarketManagement.Tests.Application.Product
             Assert.False(product.IsActive);
             _productRepositoryMock.Verify(r => r.GetByIdAsync(id), Times.Once);
             _productRepositoryMock.Verify(r => r.SaveChangesAsync(), Times.Once);
+            Assert.True(validationResult.IsValid);
         }
 
         [Fact]
@@ -49,6 +57,12 @@ namespace MarketManagement.Tests.Application.Product
         {
             // Arrange
             var id = Guid.NewGuid();
+            var validationResult = new ValidationResult();
+
+            validationResult.AddError($"O produto '{id}' não existe.");
+
+            _productValidate.Setup(v => v.ValidateUpdateProductAsync(id))
+                    .ReturnsAsync(validationResult);
 
             _productRepositoryMock
                 .Setup(r => r.GetByIdAsync(id))
@@ -57,8 +71,8 @@ namespace MarketManagement.Tests.Application.Product
             var command = new DeleteProductCommand(id);
 
             // Act & Assert
-            await Assert.ThrowsAsync<NullReferenceException>(() => _deleteProductCommandHandler.Handle(command, CancellationToken.None));
-            _productRepositoryMock.Verify(r => r.GetByIdAsync(id), Times.Once);
+            _productRepositoryMock.Verify(r => r.GetByIdAsync(id), Times.Never);
+            Assert.False(validationResult.IsValid);
         }
     }
 }

@@ -9,12 +9,11 @@ namespace MarketManagement.Application.Commands.Product.CreateProduct
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Guid>
     {
         private readonly IProductRepository _productRepository;
-        private readonly IProductValidate _productValidate;
+        private readonly IProductValidateService _productValidate;
 
-        public CreateProductCommandHandler(IProductRepository productRepository, IProductValidate productValidate)
+        public CreateProductCommandHandler(IProductRepository productRepository, IProductValidateService productValidate)
         {
             _productRepository = productRepository;
-
             _productValidate = productValidate;
         }
 
