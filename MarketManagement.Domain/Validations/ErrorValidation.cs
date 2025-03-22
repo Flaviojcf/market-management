@@ -1,7 +1,9 @@
-﻿using System.Net;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Net;
 
 namespace MarketManagement.Domain.Validations
 {
+    [ExcludeFromCodeCoverage]
     public class ErrorValidation
     {
         public ErrorValidation(HttpStatusCode status)
