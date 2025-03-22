@@ -26,13 +26,14 @@ jobs:
 
     - name: Run tests and collect coverage
       run: |
-        dotnet test --no-build --collect:"XPlat Code Coverage"
-      
+        dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults
+
     - name: Check code coverage
       run: |
-        COVERAGE=$(cat ./TestResults/*/coverage.cobertura.xml | grep -oP '(?<=line-rate=")[^"]*')
+        COVERAGE=$(dotnet reportgenerator "-reports:./TestResults/*/coverage.cobertura.xml" "-reporttypes:Summary")
         echo "Code coverage: $COVERAGE"
-        if (( $(echo "$COVERAGE < 0.80" | bc -l) )); then
+        # Extra validation step for 80% coverage
+        if [[ "$COVERAGE" != *"80%"* ]]; then
           echo "Code coverage is below 80%. Merge blocked."
           exit 1
         fi
