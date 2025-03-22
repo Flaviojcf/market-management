@@ -30,7 +30,7 @@ jobs:
 
     - name: Generate Coverage Report
       run: |
-        dotnet ./path/to/ReportGenerator.dll -reports:./TestResults/**/coverage.cobertura.xml -targetdir:./TestResults/CoverageReport -reporttypes:Html
+        dotnet $(find ~/.nuget/packages/reportgenerator -type f -name 'ReportGenerator.dll' | head -n 1) -reports:./TestResults/**/coverage.cobertura.xml -targetdir:./TestResults/CoverageReport -reporttypes:Html
 
     - name: Check Coverage
       run: |
