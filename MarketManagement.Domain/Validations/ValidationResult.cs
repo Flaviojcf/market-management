@@ -1,5 +1,8 @@
-﻿namespace MarketManagement.Domain.Validations
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace MarketManagement.Domain.Validations
 {
+    [ExcludeFromCodeCoverage]
     public class ValidationResult
     {
         public bool IsValid => !Errors.Any();
