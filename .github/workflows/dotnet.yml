@@ -21,7 +21,15 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test with Coverlet
-      run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./TestResults/coverage.cobertura.xml
+      run: |
+        mkdir -p ./TestResults
+        dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./TestResults/coverage.cobertura.xml
+    - name: Check if coverage file exists
+      run: |
+        if [ ! -f ./TestResults/coverage.cobertura.xml ]; then
+          echo "Coverage file not found!"
+          exit 1
+        fi
     - name: Install ReportGenerator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool
     - name: Generate Coverage Report
