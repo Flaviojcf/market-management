@@ -5,7 +5,7 @@ namespace MarketManagement.Domain.Entities
 {
     public sealed class ShoppingListEntity : BaseEntity
     {
-        public ShoppingListEntity(string name, int totalPrice, Guid productId)
+        public ShoppingListEntity(string name, decimal totalPrice, Guid productId)
         {
             ValidateDomain(name, totalPrice, productId);
             Name = name;
@@ -14,12 +14,12 @@ namespace MarketManagement.Domain.Entities
         }
 
         public string Name { get; private set; }
-        public int TotalPrice { get; private set; }
+        public decimal TotalPrice { get; private set; }
 
         public Guid ProductId { get; private set; }
         public ProductEntity? Product { get; private set; }
 
-        public void Update(string name, int totalPrice, Guid productId)
+        public void Update(string name, decimal totalPrice, Guid productId)
         {
             ValidateDomain(name, totalPrice, productId);
             Name = name;
@@ -28,7 +28,7 @@ namespace MarketManagement.Domain.Entities
             UpdatedAt = DateTime.Now;
         }
 
-        private static void ValidateDomain(string name, int totalPrice, Guid productId)
+        private static void ValidateDomain(string name, decimal totalPrice, Guid productId)
         {
             DomainException.When(string.IsNullOrEmpty(name), string.Format(DomainMessageConstant.messageFieldIsRequired, "name"));
             DomainException.When(totalPrice == 0, string.Format(DomainMessageConstant.messageFieldIsRequiredAndGreaterThan, "totalPrice", 0));

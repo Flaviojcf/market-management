@@ -6,7 +6,7 @@ namespace MarketManagement.Domain.Entities
 {
     public sealed class ProductEntity : BaseEntity
     {
-        public ProductEntity(string name, int currentPrice, int lastMonthPrice, CategoryEnum categoryEnum)
+        public ProductEntity(string name, decimal currentPrice, decimal lastMonthPrice, CategoryEnum categoryEnum)
         {
             ValidateDomain(name, currentPrice, lastMonthPrice, categoryEnum);
             Name = name;
@@ -16,11 +16,11 @@ namespace MarketManagement.Domain.Entities
         }
 
         public string Name { get; private set; }
-        public int CurrentPrice { get; private set; }
-        public int LastMonthPrice { get; private set; }
+        public decimal CurrentPrice { get; private set; }
+        public decimal LastMonthPrice { get; private set; }
         public CategoryEnum CategoryEnum { get; private set; }
 
-        public void Update(string name, int currentPrice, int lastMonthPrice, CategoryEnum categoryEnum)
+        public void Update(string name, decimal currentPrice, decimal lastMonthPrice, CategoryEnum categoryEnum)
         {
             ValidateDomain(name, currentPrice, lastMonthPrice, categoryEnum);
             Name = name;
@@ -30,7 +30,7 @@ namespace MarketManagement.Domain.Entities
             UpdatedAt = DateTime.Now;
         }
 
-        private static void ValidateDomain(string name, int currentPrice, int lastMonthPrice, CategoryEnum categoryEnum)
+        private static void ValidateDomain(string name, decimal currentPrice, decimal lastMonthPrice, CategoryEnum categoryEnum)
         {
             DomainException.When(string.IsNullOrEmpty(name), string.Format(DomainMessageConstant.messageFieldIsRequired, "name"));
             DomainException.When(currentPrice == 0, string.Format(DomainMessageConstant.messageFieldIsRequiredAndGreaterThan, "currentPrice", 0));

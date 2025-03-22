@@ -5,7 +5,7 @@ namespace MarketManagement.Domain.Entities
 {
     public sealed class PriceHistoryEntity : BaseEntity
     {
-        public PriceHistoryEntity(int price, DateTime date, Guid productId)
+        public PriceHistoryEntity(decimal price, DateTime date, Guid productId)
         {
             ValidateDomain(price, date, productId);
             Price = price;
@@ -13,14 +13,14 @@ namespace MarketManagement.Domain.Entities
             ProductId = productId;
         }
 
-        public int Price { get; private set; }
+        public decimal Price { get; private set; }
         public DateTime Date { get; private set; }
 
         public Guid ProductId { get; private set; }
         public ProductEntity? Product { get; private set; }
 
 
-        public void Update(int price, DateTime date, Guid productId)
+        public void Update(decimal price, DateTime date, Guid productId)
         {
             ValidateDomain(price, date, productId);
             Price = price;
@@ -29,7 +29,7 @@ namespace MarketManagement.Domain.Entities
             UpdatedAt = DateTime.Now;
         }
 
-        private static void ValidateDomain(int price, DateTime date, Guid productId)
+        private static void ValidateDomain(decimal price, DateTime date, Guid productId)
         {
             DomainException.When(price == 0, string.Format(DomainMessageConstant.messageFieldIsRequiredAndGreaterThan, "price", 0));
             DomainException.When(date == DateTime.MinValue, string.Format(DomainMessageConstant.messageFieldIsRequired, "date"));

@@ -5,7 +5,7 @@ namespace MarketManagement.Domain.Entities
 {
     public sealed class ShoppingListItemEntity : BaseEntity
     {
-        public ShoppingListItemEntity(int quantity, int totalPrice, Guid productId, Guid shoppingListId)
+        public ShoppingListItemEntity(int quantity, decimal totalPrice, Guid productId, Guid shoppingListId)
         {
             ValidateDomain(quantity, totalPrice, productId, shoppingListId);
             Quantity = quantity;
@@ -15,7 +15,7 @@ namespace MarketManagement.Domain.Entities
         }
 
         public int Quantity { get; private set; }
-        public int TotalPrice { get; private set; }
+        public decimal TotalPrice { get; private set; }
 
         public Guid ProductId { get; private set; }
         public ProductEntity? Product { get; private set; }
@@ -23,7 +23,7 @@ namespace MarketManagement.Domain.Entities
         public Guid ShoppingListId { get; private set; }
         public ShoppingListEntity? ShoppingList { get; private set; }
 
-        public void Update(int quantity, int totalPrice, Guid productId, Guid shoppingListId)
+        public void Update(int quantity, decimal totalPrice, Guid productId, Guid shoppingListId)
         {
             ValidateDomain(quantity, totalPrice, productId, shoppingListId);
             Quantity = quantity;
@@ -33,7 +33,7 @@ namespace MarketManagement.Domain.Entities
             UpdatedAt = DateTime.Now;
         }
 
-        private static void ValidateDomain(int quantity, int totalPrice, Guid productId, Guid shoppingListId)
+        private static void ValidateDomain(int quantity, decimal totalPrice, Guid productId, Guid shoppingListId)
         {
             DomainException.When(quantity == 0, string.Format(DomainMessageConstant.messageFieldIsRequiredAndGreaterThan, "quantity", 0));
             DomainException.When(totalPrice == 0, string.Format(DomainMessageConstant.messageFieldIsRequiredAndGreaterThan, "totalPrice", 0));
