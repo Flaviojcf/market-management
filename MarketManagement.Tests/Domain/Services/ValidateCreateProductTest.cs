@@ -4,7 +4,7 @@ using MarketManagement.Domain.Repositories;
 using MarketManagement.Domain.Services;
 using Moq;
 
-namespace MarketManagement.Tests.Application.Services
+namespace MarketManagement.Tests.Domain.Services
 {
     [Collection(nameof(ProductValidateService))]
     public class ProductValidateServiceTest
