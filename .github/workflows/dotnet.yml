@@ -28,10 +28,13 @@ jobs:
       run: |
         dotnet test --collect:"XPlat Code Coverage"
 
+    - name: Install ReportGenerator Tool (Version 5.4.4)
+      run: |
+        dotnet tool install --version 5.4.4 reportgenerator --tool-path ./tools
+
     - name: Generate Coverage Report
       run: |
-        dotnet tool restore
-        dotnet $(find ~/.nuget/packages/reportgenerator -type f -name 'ReportGenerator.dll' | head -n 1) -reports:./TestResults/**/coverage.cobertura.xml -targetdir:./TestResults/CoverageReport -reporttypes:Html
+        ./tools/reportgenerator -reports:./TestResults/**/coverage.cobertura.xml -targetdir:./TestResults/CoverageReport -reporttypes:Html
 
     - name: Check Coverage
       run: |
