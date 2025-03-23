@@ -12,36 +12,34 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-
-    - name: Install ReportGenerator Tool
-      run: |
-        dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.4.4
-        export PATH="$PATH:/root/.dotnet/tools"  # Garantir que o caminho seja atualizado
-
     - name: Restore dependencies
       run: dotnet restore
-
     - name: Build
       run: dotnet build --no-restore
-
-    - name: Run tests and collect coverage
+    - name: Test with coverage
       run: |
         dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults
-
-    - name: Check code coverage
+    - name: Check Code Coverage
       run: |
-        # Gerar o relatório de cobertura com a ferramenta ReportGenerator
-        reportgenerator "-reports:./TestResults/*/coverage.cobertura.xml" "-reporttypes:Summary"
+        # Extrai a cobertura de código do arquivo XML
+        coverage=$(grep -oP "(?<=<coverage.*linescovered=\")[^\"]*" ./TestResults/coverage.cobertura.xml)
+        total_lines=$(grep -oP "(?<=<coverage.*lines=\")[^\"]*" ./TestResults/coverage.cobertura.xml)
         
-        # Extra validation step for 80% coverage
-        COVERAGE=$(reportgenerator "-reports:./TestResults/*/coverage.cobertura.xml" "-reporttypes:Summary" | grep -oP '(?<=Line coverage: )[^%]*')
-        echo "Code coverage: $COVERAGE%"
-        if (( $(echo "$COVERAGE < 80" | bc -l) )); then
-          echo "Code coverage is below 80%. Merge blocked."
+        # Calcula a cobertura percentual
+        percentage=$(echo "scale=2; ($coverage / $total_lines) * 100" | bc)
+        
+        # Define a cobertura mínima (80%)
+        min_coverage=80
+        
+        # Exibe a cobertura calculada
+        echo "Coverage: $percentage%"
+        
+        # Verifica se a cobertura é inferior a 80%
+        if (( $(echo "$percentage < $min_coverage" | bc -l) )); then
+          echo "Code coverage is below the minimum threshold of $min_coverage%. Current coverage is $percentage%"
           exit 1
         fi
