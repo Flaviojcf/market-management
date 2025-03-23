@@ -25,9 +25,9 @@ jobs:
         dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults
     - name: Check Code Coverage
       run: |
-        # Extrai a cobertura de código do arquivo XML
-        coverage=$(grep -oP "(?<=<coverage.*linescovered=\")[^\"]*" ./TestResults/coverage.cobertura.xml)
-        total_lines=$(grep -oP "(?<=<coverage.*lines=\")[^\"]*" ./TestResults/coverage.cobertura.xml)
+        # Usa xmllint para extrair a cobertura de código diretamente do XML
+        coverage=$(xmllint --xpath "string(//coverage/@linescovered)" ./TestResults/coverage.cobertura.xml)
+        total_lines=$(xmllint --xpath "string(//coverage/@lines)" ./TestResults/coverage.cobertura.xml)
         
         # Calcula a cobertura percentual
         percentage=$(echo "scale=2; ($coverage / $total_lines) * 100" | bc)
