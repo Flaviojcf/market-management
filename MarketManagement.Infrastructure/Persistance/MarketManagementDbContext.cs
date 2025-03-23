@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace MarketManagement.Infrastructure.Persistance
 {
-    public class BloodDonationDbContext : DbContext
+    public class MarketManagementDbContext : DbContext
     {
-        public BloodDonationDbContext(DbContextOptions<BloodDonationDbContext> options) : base(options) { }
+        public MarketManagementDbContext(DbContextOptions<MarketManagementDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
