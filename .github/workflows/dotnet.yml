@@ -18,6 +18,10 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
+    - name: Install ReportGenerator Tool
+      run: |
+        dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.4.4
+
     - name: Restore dependencies
       run: dotnet restore
 
@@ -30,10 +34,13 @@ jobs:
 
     - name: Check code coverage
       run: |
-        COVERAGE=$(dotnet reportgenerator "-reports:./TestResults/*/coverage.cobertura.xml" "-reporttypes:Summary")
-        echo "Code coverage: $COVERAGE"
+        # Gerando o relatório de cobertura com a ferramenta ReportGenerator
+        dotnet reportgenerator "-reports:./TestResults/*/coverage.cobertura.xml" "-reporttypes:Summary"
+        
         # Extra validation step for 80% coverage
-        if [[ "$COVERAGE" != *"80%"* ]]; then
+        COVERAGE=$(dotnet reportgenerator "-reports:./TestResults/*/coverage.cobertura.xml" "-reporttypes:Summary" | grep -oP '(?<=Line coverage: )[^%]*')
+        echo "Code coverage: $COVERAGE%"
+        if (( $(echo "$COVERAGE < 80" | bc -l) )); then
           echo "Code coverage is below 80%. Merge blocked."
           exit 1
         fi
