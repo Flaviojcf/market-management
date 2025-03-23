@@ -2,6 +2,7 @@
 using MarketManagement.Domain.Enums;
 using MarketManagement.Domain.Repositories;
 using MarketManagement.Domain.Services;
+using MarketManagement.Domain.Services.Interfaces;
 using Moq;
 
 namespace MarketManagement.Tests.Domain.Services
@@ -10,12 +11,12 @@ namespace MarketManagement.Tests.Domain.Services
     public class ProductValidateServiceTest
     {
         private readonly Mock<IProductRepository> _productRepository;
-        private readonly ProductValidateService _ProductValidateService;
+        private readonly IProductValidateService _productValidateService;
 
         public ProductValidateServiceTest()
         {
             _productRepository = new Mock<IProductRepository>();
-            _ProductValidateService = new ProductValidateService(_productRepository.Object);
+            _productValidateService = new ProductValidateService(_productRepository.Object);
         }
 
         [Fact]
@@ -27,7 +28,7 @@ namespace MarketManagement.Tests.Domain.Services
             _productRepository.Setup(r => r.GetByNameAsync(name)).ReturnsAsync((ProductEntity)null);
 
             // Act
-            var result = await _ProductValidateService.ValidateCreateProductAsync(name);
+            var result = await _productValidateService.ValidateCreateProductAsync(name);
 
             // Assert
             Assert.True(result.IsValid);
@@ -47,7 +48,7 @@ namespace MarketManagement.Tests.Domain.Services
             _productRepository.Setup(r => r.GetByNameAsync(name)).ReturnsAsync(existingProduct);
 
             // Act
-            var result = await _ProductValidateService.ValidateCreateProductAsync(name);
+            var result = await _productValidateService.ValidateCreateProductAsync(name);
 
             // Assert
             Assert.False(result.IsValid);
@@ -68,7 +69,7 @@ namespace MarketManagement.Tests.Domain.Services
             _productRepository.Setup(r => r.GetByIdAsync(existingProduct.Id)).ReturnsAsync(existingProduct);
 
             // Act
-            var result = await _ProductValidateService.ValidateUpdateProductAsync(existingProduct.Id);
+            var result = await _productValidateService.ValidateUpdateProductAsync(existingProduct.Id);
 
             // Assert
             Assert.True(result.IsValid);
@@ -81,10 +82,10 @@ namespace MarketManagement.Tests.Domain.Services
         {
             // Arrange
             var productId = Guid.NewGuid();
-            _productRepository.Setup(r => r.GetByIdAsync(productId)).ReturnsAsync((ProductEntity)null);
+            _ = _productRepository.Setup(r => r.GetByIdAsync(productId)).ReturnsAsync((ProductEntity)null);
 
             // Act
-            var result = await _ProductValidateService.ValidateUpdateProductAsync(productId);
+            var result = await _productValidateService.ValidateUpdateProductAsync(productId);
 
             // Assert
             Assert.False(result.IsValid);
