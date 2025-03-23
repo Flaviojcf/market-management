@@ -25,7 +25,7 @@ namespace MarketManagement.Domain.Services
             return validationResult;
         }
 
-        public async Task<ValidationResult> ValidateUpdateUserAsync(Guid id)
+        public Task<ValidationResult> ValidateUpdateUserAsync(Guid id)
         {
             throw new NotImplementedException();
         }
