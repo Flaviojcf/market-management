@@ -1,5 +1,5 @@
 ﻿using MarketManagement.Domain.Record;
-using MarketManagement.Domain.Repositories;
+using MarketManagement.Domain.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -103,7 +103,6 @@ namespace MarketManagement.Infrastructure.InternalServices
                 .Claims.FirstOrDefault(c => c.Key == ClaimTypes.NameIdentifier).Value as string ?? string.Empty;
 
             return new TokenValidationResultRecord(true, userName);
-
         }
 
         public static TokenValidationParameters GetTokenValidationParameters(IConfiguration configuration)
