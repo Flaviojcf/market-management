@@ -1,8 +1,10 @@
 ﻿using MarketManagement.Domain.Entities;
 using MarketManagement.Domain.Repositories;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MarketManagement.Infrastructure.Persistance.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public class UserRepository : IUserRepository
     {
         public Task CreateAsync(UserEntity entity)
