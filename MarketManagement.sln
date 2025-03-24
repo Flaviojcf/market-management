@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketManagement.Applicatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketManagement.Infrastructure", "MarketManagement.Infrastructure\MarketManagement.Infrastructure.csproj", "{D07FABC6-D500-4250-BE1A-150DE1E69A18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketManagement.API", "MarketManagement.API\MarketManagement.API.csproj", "{2F96BBD2-B37D-43B7-ACA9-A91772AB5D08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D07FABC6-D500-4250-BE1A-150DE1E69A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D07FABC6-D500-4250-BE1A-150DE1E69A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D07FABC6-D500-4250-BE1A-150DE1E69A18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F96BBD2-B37D-43B7-ACA9-A91772AB5D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F96BBD2-B37D-43B7-ACA9-A91772AB5D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F96BBD2-B37D-43B7-ACA9-A91772AB5D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F96BBD2-B37D-43B7-ACA9-A91772AB5D08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
